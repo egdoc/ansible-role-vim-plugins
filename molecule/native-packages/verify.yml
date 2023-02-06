@@ -1,0 +1,15 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Stat ~/.vim/pack/generic/start/nerdcommenter
+      ansible.builtin.stat:
+        path: ~/.vim/pack/generic/start/nerdcommenter
+      register: nerdcommenter
+
+    - name: Verify ~/.vim/pack/generic/start/nerdcommenter
+      ansible.builtin.assert:
+        that:
+          - nerdcommenter.stat.exists
+          - nerdcommenter.stat.isdir

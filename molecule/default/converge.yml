@@ -1,0 +1,19 @@
+---
+- name: Converge
+  hosts: all
+  pre_tasks:
+    - name: Ensure apt cache is refreshed
+      ansible.builtin.apt:
+        update_cache: true
+      when: ansible_facts.os_family | lower == 'debian'
+
+    - name: Ensure packages are installed
+      ansible.builtin.package:
+        name: git
+        state: present
+
+  roles:
+    - role: "egdoc.vim_plugins"
+      vim_plugins_repositories:
+        - url: https://github.com/preservim/nerdcommenter
+          category: generic

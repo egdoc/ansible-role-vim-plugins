@@ -1,0 +1,24 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Stat /root/.vim/autoload/pathogen.vim
+      ansible.builtin.stat:
+        path: /root/.vim/autoload/pathogen.vim
+      register: pathogen
+
+    - name: Ensure /root/.vim/autoload/pathogen.vim exists
+      ansible.builtin.assert:
+        that: pathogen.stat.exists
+
+    - name: Stat /root/.vim/bundle/nerdcommenter
+      ansible.builtin.stat:
+        path: /root/.vim/bundle/nerdcommenter
+      register: nerdcommenter
+
+    - name: Verify /root/.vim/bundle/nerdcommenter exists and is a directory
+      ansible.builtin.assert:
+        that:
+          - nerdcommenter.stat.exists
+          - nerdcommenter.stat.isdir

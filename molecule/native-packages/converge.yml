@@ -1,0 +1,17 @@
+---
+- name: Converge
+  hosts: all
+  pre_tasks:
+    - name: Ensure packages are installed
+      ansible.builtin.package:
+        name: git
+
+  tasks:
+    - name: "Include egdoc.vim"
+      ansible.builtin.include_role:
+        name: "egdoc.vim_plugins"
+      vars:
+        vim_plugins_use_native_packages: true
+        vim_plugins_repositories:
+          - url: https://github.com/preservim/nerdcommenter
+            category: generic

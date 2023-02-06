@@ -1,0 +1,14 @@
+- name: Ensure autoload and plugins directories exist
+  ansible.builtin.file:
+    path: '{{ item }}'
+    state: directory
+    mode: '755'
+  loop:
+    - '{{ vim_plugins_user_home }}/{{ vim_plugins_directory }}'
+    - '{{ vim_plugins_user_home }}/.vim/autoload'
+
+- name: Install Pathogen
+  ansible.builtin.get_url:
+    url: '{{ vim_plugins_pathogen_url }}'
+    dest: '{{ vim_plugins_user_home }}/.vim/autoload/pathogen.vim'
+    mode: '644'

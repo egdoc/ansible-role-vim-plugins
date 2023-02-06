@@ -1,0 +1,4 @@
+---
+vim_plugins_pathogen_url: https://tpo.pe/pathogen.vim
+vim_plugins_directory: .vim/bundle
+vim_plugins_user_home: '~'

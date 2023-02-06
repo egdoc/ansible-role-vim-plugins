@@ -1,0 +1,21 @@
+---
+- name: Include pathogen tasks
+  ansible.builtin.include_tasks:
+    file: pathogen.yml
+    apply:
+      become: false
+  when: not vim_plugins_use_native_packages | bool
+
+- name: Clone plugins
+  ansible.builtin.git:
+    repo: '{{ item.url }}'
+    version: '{{ item.branch | default("master") }}'
+    dest: '{{ vim_plugins_user_home }}/{{ (vim_plugins_use_native_packages | bool) | ternary(".vim/pack", vim_plugins_directory) }}/{{ category }}/{{ group }}/{{ name }}'
+    depth: 1
+    update: true
+    force: true
+  vars:
+    category: '{{ (vim_plugins_use_native_packages | bool) | ternary((item.category | default("plugins")), "") }}'
+    group: '{{ (vim_plugins_use_native_packages | bool) | ternary(((item.autostart | default(true)) | ternary("start", "opt")), "") }}'
+    name: '{{ item.url | basename }}'
+  loop: '{{ vim_plugins_repositories }}'

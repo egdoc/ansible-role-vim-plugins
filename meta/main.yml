@@ -1,0 +1,22 @@
+galaxy_info:
+  author: Egidio Docile
+  namespace: egdoc
+  role_name: vim_plugins
+  description: Ansible role to install vim plugins with pathogen or Vim native plugins loading system
+  license: GPL-2.0-or-later
+  min_ansible_version: '2.1'
+  platforms:
+    - name: Fedora
+      version: all
+    - name: Debian
+      version: all
+    - name: EL
+      version: all
+    - name: Ubuntu
+      version: all
+  galaxy_tags:
+    - vim
+    - pathogen
+    - pack
+    - packadd
+    - plugin
